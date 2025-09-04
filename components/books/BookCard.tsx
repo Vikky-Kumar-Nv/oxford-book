@@ -2,11 +2,13 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Star, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/components/providers/CartProvider';
 import type { Book } from '@/lib/sampleData';
+import { sampleReviews } from '@/lib/sampleData';
 
 interface BookCardProps {
   book: Book;
@@ -14,6 +16,10 @@ interface BookCardProps {
 
 const BookCard = ({ book }: BookCardProps) => {
   const { addToCart } = useCart();
+
+  // Get reviews for this book
+  const bookReviews = sampleReviews.filter(review => review.bookId === book.id);
+  const latestReview = bookReviews.length > 0 ? bookReviews[0] : null;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -32,9 +38,11 @@ const BookCard = ({ book }: BookCardProps) => {
         <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col max-w-sm">
           {/* Book Cover */}
           <div className="relative aspect-[1/1] overflow-hidden">
-            <img
+            <Image
               src={book.coverImage}
               alt={book.title}
+              width={300}
+              height={300}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute top-3 left-3">
@@ -79,6 +87,37 @@ const BookCard = ({ book }: BookCardProps) => {
                 {book.rating} ({book.reviewCount})
               </span>
             </div>
+
+            {/* Customer Review Section */}
+            {latestReview && (
+              <div className="mb-3 p-2 bg-gray-50 rounded-lg">
+                <div className="flex items-center mb-1">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-2.5 h-2.5 ${
+                          i < latestReview.rating 
+                            ? 'text-yellow-400 fill-current' 
+                            : 'text-gray-300'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs text-gray-600 ml-1 font-medium">
+                    {latestReview.userName}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-700 line-clamp-2 italic">
+                  &ldquo;{latestReview.comment}&rdquo;
+                </p>
+                {bookReviews.length > 1 && (
+                  <p className="text-xs text-purple-600 mt-1">
+                    +{bookReviews.length - 1} more reviews
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* Price and Add to Cart */}
             <div className="mt-auto">

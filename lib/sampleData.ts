@@ -262,5 +262,93 @@ export const sampleReviews: Review[] = [
     rating: 5,
     comment: 'Life-changing book! The habit stacking concept is revolutionary.',
     date: '2024-12-12'
+  },
+  {
+    id: '4',
+    bookId: '3',
+    userName: 'David Wilson',
+    rating: 5,
+    comment: 'Incredible storytelling and world-building. Could not put it down!',
+    date: '2024-12-14'
+  },
+  {
+    id: '5',
+    bookId: '4',
+    userName: 'Lisa Brown',
+    rating: 4,
+    comment: 'Fascinating insights into psychology. Makes you think differently about thinking.',
+    date: '2024-12-13'
+  },
+  {
+    id: '6',
+    bookId: '5',
+    userName: 'John Smith',
+    rating: 5,
+    comment: 'Perfect blend of adventure and heart. My kids love this book!',
+    date: '2024-12-11'
+  },
+  {
+    id: '7',
+    bookId: '6',
+    userName: 'Anna Rodriguez',
+    rating: 4,
+    comment: 'Beautifully written with stunning illustrations. A timeless classic.',
+    date: '2024-12-09'
+  },
+  {
+    id: '8',
+    bookId: '7',
+    userName: 'Tom Johnson',
+    rating: 5,
+    comment: 'Brilliant mystery that keeps you guessing until the very end.',
+    date: '2024-12-08'
+  },
+  {
+    id: '9',
+    bookId: '8',
+    userName: 'Maria Garcia',
+    rating: 4,
+    comment: 'Compelling love story with great character development.',
+    date: '2024-12-07'
+  },
+  {
+    id: '10',
+    bookId: '9',
+    userName: 'Chris Lee',
+    rating: 5,
+    comment: 'Mind-bending sci-fi that explores deep philosophical questions.',
+    date: '2024-12-06'
+  },
+  {
+    id: '11',
+    bookId: '10',
+    userName: 'Rachel White',
+    rating: 4,
+    comment: 'Epic fantasy adventure with rich world-building and memorable characters.',
+    date: '2024-12-05'
+  },
+  {
+    id: '12',
+    bookId: '2',
+    userName: 'Mark Thompson',
+    rating: 5,
+    comment: 'Best productivity book I have ever read. Actually works!',
+    date: '2024-12-04'
+  },
+  {
+    id: '13',
+    bookId: '3',
+    userName: 'Jennifer Adams',
+    rating: 4,
+    comment: 'Gripping from start to finish. Couldn not sleep until I finished it.',
+    date: '2024-12-03'
+  },
+  {
+    id: '14',
+    bookId: '1',
+    userName: 'Robert Davis',
+    rating: 5,
+    comment: 'One of the most beautiful books about life and choices I have ever read.',
+    date: '2024-12-02'
   }
 ];

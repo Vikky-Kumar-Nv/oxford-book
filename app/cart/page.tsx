@@ -3,11 +3,20 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/components/providers/CartProvider';
+import BookCard from '@/components/books/BookCard';
+import { sampleBooks } from '@/lib/sampleData';
 
 export default function CartPage() {
   const { cartItems, updateQuantity, removeFromCart, getTotalPrice, getTotalItems } = useCart();
+
+  // Get recommended books (exclude items already in cart)
+  const cartBookIds = cartItems.map(item => item.id);
+  const recommendedBooks = sampleBooks
+    .filter(book => !cartBookIds.includes(book.id))
+    .slice(0, 4);
 
   if (cartItems.length === 0) {
     return (
@@ -64,9 +73,11 @@ export default function CartPage() {
                 className="bg-white rounded-lg shadow-lg p-6"
               >
                 <div className="flex items-start space-x-4">
-                  <img
+                  <Image
                     src={item.coverImage}
                     alt={item.title}
+                    width={80}
+                    height={112}
                     className="w-20 h-28 object-cover rounded-lg"
                   />
                   
@@ -151,12 +162,56 @@ export default function CartPage() {
                 Proceed to Checkout
               </Button>
               
+              <Link href="/" className="block mt-4">
+                <Button variant="outline" className="w-full">
+                  Continue Shopping
+                </Button>
+              </Link>
+              
               <p className="text-sm text-gray-500 text-center mt-4">
                 Free shipping on all orders. Secure checkout guaranteed.
               </p>
             </div>
           </motion.div>
         </div>
+
+        {/* Recommended Books Section */}
+        {recommendedBooks.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-16"
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Recommended Books</h2>
+              <p className="text-gray-600">You might also like these amazing books</p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {recommendedBooks.map((book, index) => (
+                <motion.div
+                  key={book.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                  className="h-full"
+                >
+                  <BookCard book={book} />
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="text-center mt-8">
+              <Link href="/">
+                <Button variant="outline" size="lg" className="px-8">
+                  <ShoppingBag className="w-4 h-4 mr-2" />
+                  Browse More Books
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );
